@@ -5,6 +5,14 @@ app = Flask(__name__)
 
 pipeline = joblib.load("spam_filter.pkl")
 
+@app.get("/")
+def home():
+    return jsonify({
+        "message": "Spam Filter API is running",
+        "endpoint": "/detect",
+        "method": "POST"
+    })
+
 @app.post("/detect")
 def detect():
 
