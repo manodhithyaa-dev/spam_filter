@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Filter API</title>
+
+    <style>
+        body {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #222;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        blockquote {
+            border-left: 4px solid #ccc;
+            padding-left: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    {{ content | safe }}
+</body>
+</html>

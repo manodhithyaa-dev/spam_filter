@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import joblib
+import markdown
 
 app = Flask(__name__)
 
@@ -7,11 +8,15 @@ pipeline = joblib.load("spam_filter.pkl")
 
 @app.get("/")
 def home():
-    return jsonify({
-        "message": "Spam Filter API is running",
-        "endpoint": "/detect",
-        "method": "POST"
-    })
+    with open("README.md", "r", encoding="utf-8") as f:
+        md_content = f.read()
+
+    html_content = markdown.markdown(
+        md_content,
+        extensions=["fenced_code", "tables"]
+    )
+
+    return render_template("readme.html", content=html_content)
 
 @app.post("/detect")
 def detect():
