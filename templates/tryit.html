@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detection API</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .playground {
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        {{ content | safe }}
+    </div>
+
+    <div class="playground">
+        <h2>Try It Out</h2>
+
+        <label>Subject</label>
+        <input
+            id="subject"
+            placeholder="Congratulations! You won a prize"
+        >
+
+        <label>Mail Content</label>
+        <textarea
+            id="mail_content"
+            rows="8"
+            placeholder="Click here to claim your reward..."
+        ></textarea>
+
+        <button onclick="detectSpam()">
+            Detect Spam
+        </button>
+
+        <h3>Response</h3>
+        <pre id="response">Waiting...</pre>
+    </div>
+
+    <script>
+        async function detectSpam() {
+
+            const subject =
+                document.getElementById("subject").value;
+
+            const mail_content =
+                document.getElementById("mail_content").value;
+
+            const responseBox =
+                document.getElementById("response");
+
+            responseBox.textContent = "Loading...";
+
+            try {
+
+                const response = await fetch("/detect", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        subject,
+                        mail_content
+                    })
+                });
+
+                const data = await response.json();
+
+                responseBox.textContent =
+                    JSON.stringify(data, null, 4);
+
+            } catch (err) {
+
+                responseBox.textContent =
+                    "Error: " + err.message;
+            }
+        }
+    </script>
+
+</body>
+</html>

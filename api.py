@@ -18,6 +18,10 @@ def home():
 
     return render_template("readme.html", content=html_content)
 
+@app.get("/tryit")
+def tryit():
+    return render_template("tryit.html")
+
 @app.post("/detect")
 def detect():
 

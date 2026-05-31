@@ -1,25 +1,38 @@
 # Spam Filter API
 
-A Machine Learning powered REST API for email spam detection built using Flask and Scikit-Learn.
+A Machine Learning powered REST API that detects whether an email is **Spam** or **Ham (Legitimate Email)** using a TF-IDF + Logistic Regression pipeline built with Flask and Scikit-Learn.
 
-The API analyzes email subject and content, then predicts whether the email is **Spam** or **Ham (Legitimate Email)** while also returning confidence probabilities.
+The API accepts an email subject and email content, then returns a classification along with confidence scores.
+
+---
 
 ## Live API
 
 **Base URL**
 
+```text
 https://spam-filter-7x06.onrender.com
+```
+
+### Interactive Playground
+
+Test the API directly from your browser:
+
+```text
+https://spam-filter-7x06.onrender.com/tryit
+```
 
 ---
 
 ## Features
 
 * Spam/Ham email classification
-* RESTful API
-* Probability scores for both classes
-* Trained using Scikit-Learn
-* Lightweight and fast inference
-* Deployable on Render, Railway, AWS, VPS, or Docker
+* RESTful JSON API
+* Confidence probability scores
+* Fast inference
+* Lightweight deployment
+* Interactive API testing page
+* Easy integration into web and mobile applications
 
 ---
 
@@ -34,7 +47,7 @@ https://spam-filter-7x06.onrender.com
 
 ---
 
-## API Endpoint
+## API Reference
 
 ### Detect Spam
 
@@ -42,6 +55,12 @@ https://spam-filter-7x06.onrender.com
 
 ```http
 POST /detect
+```
+
+### Request Headers
+
+```http
+Content-Type: application/json
 ```
 
 ### Request Body
@@ -90,6 +109,24 @@ curl -X POST https://spam-filter-7x06.onrender.com/detect \
     "subject":"Congratulations!",
     "mail_content":"You have won a free iPhone. Click here to claim."
 }'
+```
+
+---
+
+## Example Python Request
+
+```python
+import requests
+
+response = requests.post(
+    "https://spam-filter-7x06.onrender.com/detect",
+    json={
+        "subject": "Congratulations!",
+        "mail_content": "You have won a free iPhone. Click here to claim."
+    }
+)
+
+print(response.json())
 ```
 
 ---
@@ -144,20 +181,20 @@ http://localhost:3100
 
 ## Model Information
 
-The model is trained using:
+The classifier is trained using:
 
 * TF-IDF Vectorization
-* Logistic Regression Classifier
+* Logistic Regression
 * Email Subject + Email Body Features
 
-Input text is transformed into the format:
+Input is transformed into:
 
 ```text
 Subject: <email_subject>
 <email_content>
 ```
 
-before prediction.
+before being passed to the model.
 
 ---
 
@@ -169,11 +206,15 @@ spam_filter/
 ├── api.py
 ├── spam_filter.pkl
 ├── requirements.txt
-├── Procfile
+├── README.md
 ├── spam.ipynb
 │
-└── dataset/
-    └── spam_ham_dataset.csv
+├── dataset/
+│   └── spam_ham_dataset.csv
+│
+└── templates/
+    ├── readme.html
+    └── tryit.html
 ```
 
 ---
@@ -191,7 +232,16 @@ spam_filter/
 
 ## Author
 
-Manodhithyaa C S
-
-GitHub:
+**Manodhithyaa C S**
+### Portfolio
+```
+https://manodhithyaa.me/
+```
+### GitHub
+```
 https://github.com/manodhithyaa-dev
+```
+### Repository
+```
+https://github.com/manodhithyaa-dev/spam_filter
+```
